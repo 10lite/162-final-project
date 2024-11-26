@@ -13,7 +13,7 @@ pip install poetry --user
 4. Install the dependencies:
 
 ```bash
-poetry config virtualenv.in-project true && poetry install
+poetry install
 ```
 
 5. Activate the virtual environment:
