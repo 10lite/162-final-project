@@ -21,14 +21,10 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      # Fetch the latest changes from the backend subtree branch
-      - name: Fetch remote changes from backend branch
-        run: |
-          git fetch origin backend
-
       # Force push the changes from the backend folder to the backend subtree branch
       - name: Force push changes from backend folder to backend subtree branch
         run: |
+          git pull origin main
           git subtree push --prefix=backend origin main:backend
 
       # Return to the main branch after the push
