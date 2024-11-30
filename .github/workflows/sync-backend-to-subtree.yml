@@ -25,7 +25,7 @@ jobs:
       - name: Sync with remote backend branch
         run: |
           git fetch --all  # Fetch all remote branches explicitly
-          git checkout backend  # Check out the 'backend' branch
+          git checkout backend --  # Check out the 'backend' branch
           git merge origin/backend --strategy=recursive --strategy-option=theirs # Merge the remote changes with "theirs" strategy
 
       # Push changes from the backend folder to the backend subtree branch
