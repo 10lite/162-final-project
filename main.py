@@ -1,10 +1,13 @@
 from fastapi.responses import HTMLResponse
 from fastapi import FastAPI
 import uvicorn
+from app.frame_selection.select_random_frames import router
 
 app = FastAPI(
     title="CMSC 162 - Final Project",
 )
+
+app.include_router(router, prefix="/api")
 
 
 @app.get("/")
