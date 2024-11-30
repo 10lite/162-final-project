@@ -1,0 +1,32 @@
+name: Sync Backend to Subtree Branch
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+
+jobs:
+  sync-backend:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Git
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      # Pull latest changes for the backend subtree branch (backend branch)
+      - name: Fetch the latest changes from the backend subtree branch
+        run: |
+          git fetch origin backend
+
+      # Push changes from the backend folder to the backend subtree branch
+      - name: Push changes from backend folder to backend subtree branch
+        run: |
+          git subtree push --prefix=backend origin main:backend
