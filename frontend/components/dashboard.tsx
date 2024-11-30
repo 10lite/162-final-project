@@ -5,32 +5,39 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card } from "@/components/ui/card"
 import VideoAnalysis from "./video-analysis"
 import ImageAnalysis from "./image-analysis"
-import VehicleTracking from "./vehicle-tracking"
-import TrafficPatterns from "./traffic-patterns"
+import EnhanceImage from "./enhance-image"
+
+// Define a type for tab information
+type TabInfo = {
+  value: string;
+  label: string;
+  component: JSX.Element;
+};
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("video")
 
+  // Array of tab information
+  const tabs: TabInfo[] = [
+    { value: "enhance", label: "Enhance Traffic Image", component: <EnhanceImage /> },
+    { value: "image", label: "Image Analysis", component: <ImageAnalysis /> },
+    { value: "video", label: "Video Analysis", component: <VideoAnalysis /> },
+  ];
+
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
       <TabsList>
-        <TabsTrigger value="video">Video Analysis</TabsTrigger>
-        <TabsTrigger value="image">Image Analysis</TabsTrigger>
-        <TabsTrigger value="tracking">Vehicle Tracking</TabsTrigger>
-        <TabsTrigger value="patterns">Traffic Patterns</TabsTrigger>
+        {tabs.map(tab => (
+          <TabsTrigger key={tab.value} value={tab.value}>
+            {tab.label}
+          </TabsTrigger>
+        ))}
       </TabsList>
-      <TabsContent value="video">
-        <VideoAnalysis />
-      </TabsContent>
-      <TabsContent value="image">
-        <ImageAnalysis />
-      </TabsContent>
-      <TabsContent value="tracking">
-        <VehicleTracking />
-      </TabsContent>
-      <TabsContent value="patterns">
-        <TrafficPatterns />
-      </TabsContent>
+      {tabs.map(tab => (
+        <TabsContent key={tab.value} value={tab.value}>
+          {tab.component}
+        </TabsContent>
+      ))}
     </Tabs>
   )
 }

@@ -32,45 +32,13 @@ export default function ImageAnalysis() {
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">Image Analysis</h2>
+      <h4>Upload an enhanced image with vehicles to identify and count each vehicle and their types.</h4>
       <div>
         <Label htmlFor="image-upload">Upload Image</Label>
         <Input id="image-upload" type="file" accept="image/*" onChange={handleUpload} />
       </div>
-      <div>
-        <Label htmlFor="enhancement">Enhancement Level</Label>
-        <Slider
-          id="enhancement"
-          min={0}
-          max={100}
-          step={1}
-          value={[enhancementLevel]}
-          onValueChange={(value) => setEnhancementLevel(value[0])}
-        />
-      </div>
-      <div>
-        <Label htmlFor="restoration">Restoration Level</Label>
-        <Slider
-          id="restoration"
-          min={0}
-          max={100}
-          step={1}
-          value={[restorationLevel]}
-          onValueChange={(value) => setRestorationLevel(value[0])}
-        />
-      </div>
-      <div>
-        <Label htmlFor="compression">Compression Level</Label>
-        <Slider
-          id="compression"
-          min={0}
-          max={100}
-          step={1}
-          value={[compressionLevel]}
-          onValueChange={(value) => setCompressionLevel(value[0])}
-        />
-      </div>
-      <Button onClick={handleProcess}>Process Image</Button>
-      <Card className="w-full aspect-video flex items-center justify-center bg-gray-100">
+      {/* <Button onClick={handleProcess}>Process Image</Button> */}
+      <Card className="w-full aspect-video flex items-center p-6 justify-center bg-gray-100">
         {image ? (
           <img src={URL.createObjectURL(image)} alt="Uploaded image" className="max-w-full max-h-full object-contain" />
         ) : (

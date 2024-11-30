@@ -35,11 +35,12 @@ export default function VideoAnalysis() {
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">Video Analysis</h2>
+      <h4>Upload a video with vehicles. This will randomly select 3 frames, processes them to enhance quality, compresses them, and returns the result to the dashboard.</h4>
       <div>
         <Label htmlFor="video-upload">Upload Video</Label>
         <Input id="video-upload" type="file" accept="video/*" onChange={handleUpload} />
       </div>
-      <div>
+      {/* <div>
         <Label htmlFor="enhancement">Enhancement Level</Label>
         <Slider
           id="enhancement"
@@ -71,11 +72,11 @@ export default function VideoAnalysis() {
           value={[compressionLevel]}
           onValueChange={(value) => setCompressionLevel(value[0])}
         />
-      </div>
-      <div className="flex items-center space-x-2">
+      </div> */}
+      {/* <div className="flex items-center space-x-2">
         <Switch id="stabilization" checked={stabilization} onCheckedChange={setStabilization} />
         <Label htmlFor="stabilization">Enable Video Stabilization</Label>
-      </div>
+      </div> */}
       <Button onClick={handleProcess}>Process Video</Button>
       <Card className="w-full aspect-video flex items-center justify-center bg-gray-100">
         {video ? (
