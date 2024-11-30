@@ -29,9 +29,11 @@ jobs:
       # Force push the changes from the backend folder to the backend subtree branch
       - name: Force push changes from backend folder to backend subtree branch
         run: |
-          git subtree push --prefix=backend origin main:backend --force
+          git subtree push --prefix=backend origin main:backend
 
       # Return to the main branch after the push
       - name: Checkout main branch
         run: |
+          git checkout backend
+          git pull origin backend && git push origin backend
           git checkout main
