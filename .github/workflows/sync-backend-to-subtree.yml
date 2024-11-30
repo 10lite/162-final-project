@@ -24,8 +24,8 @@ jobs:
       # Ensure the local backend branch is up to date with the remote backend branch
       - name: Sync with remote backend branch
         run: |
-          git fetch origin backend  # Fetch the latest changes for the backend branch
-          git checkout refs/heads/backend  # Explicitly specify that it's the backend branch
+          git fetch --all  # Fetch all remote branches explicitly
+          git checkout backend  # Check out the 'backend' branch
           git merge origin/backend --strategy=recursive --strategy-option=theirs # Merge the remote changes with "theirs" strategy
 
       # Push changes from the backend folder to the backend subtree branch
