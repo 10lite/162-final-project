@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir poetry
 COPY pyproject.toml poetry.lock ./
 RUN poetry install --no-dev --no-interaction --no-ansi
 
-COPY . .
+COPY backend .
 
 EXPOSE 8000
 
