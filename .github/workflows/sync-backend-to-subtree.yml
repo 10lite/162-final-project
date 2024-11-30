@@ -21,15 +21,19 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      # Force push the changes from the backend folder to the backend subtree branch
+      # Ensure the local backend branch is up to date with the remote backend branch
+      - name: Sync with remote backend branch
+        run: |
+          git fetch origin backend  # Fetch the latest changes for the backend branch
+          git checkout backend      # Switch to the backend branch
+          git merge origin/backend --strategy=recursive --strategy-option=theirs # Merge the remote changes with "theirs" strategy
+
+      # Push changes from the backend folder to the backend subtree branch
       - name: Force push changes from backend folder to backend subtree branch
         run: |
-          git pull origin main
           git subtree push --prefix=backend origin main:backend
 
       # Return to the main branch after the push
       - name: Checkout main branch
         run: |
-          git checkout backend
-          git pull origin backend && git push origin backend
           git checkout main
