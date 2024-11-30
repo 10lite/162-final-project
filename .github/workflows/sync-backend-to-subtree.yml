@@ -11,7 +11,7 @@ jobs:
   sync-backend:
     runs-on: ubuntu-latest
     steps:
-      # Checkout the repository
+      # Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -21,12 +21,18 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      # Pull latest changes for the backend subtree branch (backend branch)
-      - name: Fetch the latest changes from the backend subtree branch
+      # Fetch the latest changes from the backend subtree branch
+      - name: Fetch remote changes from backend branch
         run: |
           git fetch origin backend
 
-      # Push changes from the backend folder to the backend subtree branch
+      # Merge the remote changes to ensure we are up-to-date with the remote backend branch
+      - name: Merge changes from backend branch
+        run: |
+          git checkout backend || git checkout -b backend
+          git merge origin/backend --no-edit
+
+      # Push the changes from the backend folder to the backend subtree branch
       - name: Push changes from backend folder to backend subtree branch
         run: |
           git subtree push --prefix=backend origin main:backend
