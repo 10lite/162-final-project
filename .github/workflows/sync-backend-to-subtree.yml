@@ -25,8 +25,13 @@ jobs:
       - name: Sync with remote backend branch
         run: |
           git fetch --all  # Fetch all remote branches explicitly
-          git checkout backend --  # Check out the 'backend' branch
+          git checkout backend  # Check out the 'backend' branch
           git merge origin/backend --strategy=recursive --strategy-option=theirs # Merge the remote changes with "theirs" strategy
+
+      # Use git subtree add to create the backend branch if it doesn't exist
+      - name: Add backend branch with subtree if it doesn't exist
+        run: |
+          git subtree add --prefix=backend origin main:backend || echo "Backend branch already exists, proceeding with push."
 
       # Push changes from the backend folder to the backend subtree branch
       - name: Force push changes from backend folder to backend subtree branch
