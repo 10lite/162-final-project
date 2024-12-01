@@ -12,22 +12,32 @@
 # RUN poetry shell
 # EXPOSE 8000
 
-# CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
-FROM python:3.12-slim
+# FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11
 
-# Set working directory
-WORKDIR /app
+
+# COPY ./requirements.txt /app/requirements.txt
+
+# # Install system dependencies
+# RUN pip install --pre torch torchvision --force-reinstall --index-url https://download.pytorch.org/whl/nightly/cpu
+
+# # Install dependencies
+# RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+# # Copy the rest of the application
+# COPY . /app/
+
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11
 
 # Install system dependencies
-RUN pip install --no-cache-dir poetry
+RUN apt-get update && apt-get install -y \
+    libgl1 \
+    libglib2.0-0
 
-# Copy only dependency files first for better caching
-COPY pyproject.toml poetry.lock ./
+# Install Python dependencies
+COPY ./requirements.txt /app/requirements.txt
+RUN pip install --pre torch torchvision --force-reinstall --index-url https://download.pytorch.org/whl/nightly/cpu
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-# Install dependencies
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
-
-# Copy the rest of the application
-COPY . .
+# Copy the application code
+COPY . /app/
