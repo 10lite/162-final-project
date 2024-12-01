@@ -10,7 +10,7 @@ app = FastAPI(
 app.include_router(router, prefix="/api")
 
 
-@app.get("/")
+@app.get("/", include_in_schema=False)
 def entry():
     html_content = """
     <html>
