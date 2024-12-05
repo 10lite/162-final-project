@@ -1,0 +1,8 @@
+.env
+__pycache__
+*.pyc
+.venv
+poetry.lock
+poetry.toml
+pyproject.toml
+README.md
