@@ -1,4 +1,5 @@
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 import uvicorn
 from app.frame_selection.select_random_frames import router as frame_selection_router
@@ -8,9 +9,16 @@ app = FastAPI(
     title="CMSC 162 - Final Project",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(frame_selection_router, prefix="/api")
 app.include_router(car_detection_router, prefix="/api")
-
 
 @app.get("/", include_in_schema=False)
 def entry():
