@@ -1,7 +1,4 @@
-import Header from '@/components/header'
-import Sidebar from '@/components/sidebar'
 import Dashboard from '@/components/dashboard'
-import Footer from '@/components/footer'
 
 export default function Home() {
   return (
@@ -11,8 +8,7 @@ export default function Home() {
           <Dashboard />
         </main>
       </div>
-      <Footer />
     </div>
-  )
+  ) 
 }
 
