@@ -48,6 +48,8 @@ async def detect_vehicles(input: UploadFile) -> DetectVehiclesResponse:
         elif image_array.shape[2] == 4:  # RGBA to RGB
             image_array = image_array[:, :, :3]
 
+        image_array = cv2.cvtColor(image_array, cv2.COLOR_RGB2BGR)
+
         # Perform inference, do not save the photo and only return the count of vehicles and bytearray of the photo with boxes
         results = model(image_array, conf=0.5)
 
@@ -60,7 +62,6 @@ async def detect_vehicles(input: UploadFile) -> DetectVehiclesResponse:
 
         # Draw the bounding boxes on the image
         image_with_boxes = results[0].plot()
-        image_with_boxes = cv2.cvtColor(image_with_boxes, cv2.COLOR_BGR2RGB)
 
         # encode the numpy into file format
         success, encoded_image = cv2.imencode(".jpg", image_with_boxes)
