@@ -50,7 +50,7 @@ async def detect_vehicles(input: UploadFile) -> DetectVehiclesResponse:
       image_array = image_array[:, :, :3]
 
     # Perform inference, do not save the photo and only return the count of vehicles and bytearray of the photo with boxes
-    results = model(image_array)
+    results = model(image_array, conf=0.5)
     
     orig_image = results[0].orig_img
     boxes = results[0].boxes
