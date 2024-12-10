@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { Loading } from "./ui/loading";
 
 export default function VideoAnalysis() {
   const [video, setVideo] = useState<File | null>(null);
@@ -156,9 +157,10 @@ export default function VideoAnalysis() {
 
       {/* Grayed-out background while loading */}
       {isLoading && (
-        <div className="fixed top-[-20px] left-0 right-0 bottom-0 bg-gray-700 opacity-50 z-10 flex items-center justify-center">
-          <div className="w-16 h-16 border-8 border-t-transparent border-white rounded-full animate-spin"></div>
-        </div>
+        // <div className="fixed top-[-20px] left-0 right-0 bottom-0 bg-gray-700 opacity-50 z-10 flex items-center justify-center">
+        //   <div className="w-16 h-16 border-8 border-t-transparent border-white rounded-full animate-spin"></div>
+        // </div>
+        <Loading size="w-16 h-16" />
       )}
     </div>
   );
