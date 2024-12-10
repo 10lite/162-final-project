@@ -12,6 +12,7 @@ export default function ImageAnalysis() {
   const [enhancementLevel, setEnhancementLevel] = useState(50)
   const [restorationLevel, setRestorationLevel] = useState(50)
   const [compressionLevel, setCompressionLevel] = useState(50)
+  const data = null
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -45,6 +46,11 @@ export default function ImageAnalysis() {
           <p className="text-gray-500">Upload an image to see it here</p>
         )}
       </Card>
+      { data &&
+        <Card className="w-full aspect-video flex items-center p-6 justify-center bg-gray-100">
+          
+        </Card>
+      }
     </div>
   )
 }
