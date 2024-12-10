@@ -72,7 +72,13 @@ async def enhance_image(
           lab_planes[0] = clahe.apply(lab_planes[0])
           enhanced_image = cv2.cvtColor(cv2.merge(lab_planes), cv2.COLOR_LAB2RGB)
       else:
-          enhanced_image = clahe.apply(image_array)
+        # Handle grayscale or other formats
+        if len(image_array.shape) == 2:
+          # Grayscale to RGB
+          enhanced_image = cv2.cvtColor(image_array, cv2.COLOR_GRAY2RGB)
+        elif image_array.shape[2] == 4:
+          # RGBA to RGB
+          enhanced_image = cv2.cvtColor(image_array, cv2.COLOR_RGBA2RGB)
 
     # Restore image
     restored_image = enhanced_image.copy()
@@ -92,13 +98,17 @@ async def enhance_image(
     # 0.0 = highest quality (100), 1.0 = lowest quality (10)
     compression_quality = int(100 - (compression_level * 90))  # 100 to 10
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), compression_quality]
-    result, encoded_image = cv2.imencode(".jpg", restored_image, encode_param)
+
+    # Ensure image is in RGB before encoding
+    restored_image_rgb = cv2.cvtColor(restored_image, cv2.COLOR_BGR2RGB)
+
+    # Encode the RGB image
+    result, encoded_image = cv2.imencode(".jpg", restored_image_rgb, encode_param)
 
     if not result:
       raise Exception("Failed to encode image")
 
     encoded_image_base64 = base64.b64encode(encoded_image).decode()
-    print("Encoded Image Base64 Length:", len(encoded_image_base64))
 
     return EnhanceImageResponse(enhanced_image=encoded_image_base64)
 
