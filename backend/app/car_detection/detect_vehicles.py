@@ -60,6 +60,7 @@ async def detect_vehicles(input: UploadFile) -> DetectVehiclesResponse:
 
         # Draw the bounding boxes on the image
         image_with_boxes = results[0].plot()
+        image_with_boxes = cv2.cvtColor(image_with_boxes, cv2.COLOR_BGR2RGB)
 
         # encode the numpy into file format
         success, encoded_image = cv2.imencode(".jpg", image_with_boxes)
