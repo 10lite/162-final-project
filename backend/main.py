@@ -4,6 +4,7 @@ from fastapi import FastAPI
 import uvicorn
 from app.frame_selection.select_random_frames import router as frame_selection_router
 from app.car_detection.detect_vehicles import router as car_detection_router
+from app.image_enhancement.enhance_image import router as image_enhancement_router
 
 app = FastAPI(
     title="CMSC 162 - Final Project",
@@ -19,6 +20,7 @@ app.add_middleware(
 
 app.include_router(frame_selection_router, prefix="/api")
 app.include_router(car_detection_router, prefix="/api")
+app.include_router(image_enhancement_router, prefix="/api")
 
 @app.get("/", include_in_schema=False)
 def entry():
