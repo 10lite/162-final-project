@@ -87,7 +87,7 @@ export default function ImageAnalysis() {
         />
       </div>
 
-      <Button onClick={handleProcess} disabled={isLoading}>
+      <Button onClick={handleProcess} disabled={isLoading} className="bg-yellow-500 text-black hover:bg-yellow-300">
         {isLoading ? "Processing..." : "Process Image"}
       </Button>
 
@@ -99,7 +99,7 @@ export default function ImageAnalysis() {
             className="max-w-full max-h-full object-contain"
           />
         ) : (
-          <p className="text-gray-500">Upload an image to see it here</p>
+          <p className="text-gray-500">Upload an image to be analyzed.</p>
         )}
       </Card>
 
@@ -116,17 +116,27 @@ export default function ImageAnalysis() {
 
       {/* Display the number of vehicles detected */}
       {numberOfVehicles && (
-        <div className="grid grid-cols-2 gap-4">
-          {Object.entries(numberOfVehicles).map(([vehicleType, count]) => (
-            <Card key={vehicleType} className="p-4">
-              <h3 className="text-lg font-semibold">
-                {vehicleType.charAt(0).toUpperCase() +
-                  vehicleType.slice(1).toLowerCase()}
-              </h3>
-              <p>{count} vehicles detected</p>
-            </Card>
-          ))}
-        </div>
+        <section className="flex flex-col space-y-2">
+          <h3 className="text-2xl mt-4 font-bold text-black">
+            Vehicles Counted
+          </h3>
+          <div className="grid grid-cols-4 gap-4">
+            {Object.entries(numberOfVehicles).map(([vehicleType, count]) => (
+              <Card key={vehicleType} className="p-4 bg-yellow-50 space-y-1">
+                <h3 className="text-xl font-semibold">
+                  {vehicleType.charAt(0).toUpperCase() +
+                    vehicleType.slice(1).toLowerCase()}
+                </h3>
+                <div className="flex gap-2 items-center">
+                  <Card className="size-8 rounded-sm flex justify-center items-center bg-yellow-200 font-bold">
+                      {count} 
+                  </Card>
+                  detected
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
       )}
 
       {isLoading && <Loading size="w-16 h-16" />}

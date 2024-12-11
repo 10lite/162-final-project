@@ -1,8 +1,11 @@
+import TrafficPatterns from "@/components/traffic-patterns"
+import { MapProvider } from "@/hooks/map-provider"
+
 export default function Map() {
   return (
-    <div>
-      <h1>Map</h1>
-    </div>
+    <MapProvider>
+      <TrafficPatterns />
+    </MapProvider>
   )
 }
 

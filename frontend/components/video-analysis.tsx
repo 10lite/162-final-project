@@ -101,7 +101,7 @@ export default function VideoAnalysis() {
         />
       </div>
 
-      <Button onClick={() => video && processVideo(video)} disabled={isLoading}>
+      <Button onClick={() => video && processVideo(video)} disabled={isLoading} className="bg-yellow-500 text-black hover:bg-yellow-300">
         {isLoading ? "Processing..." : "Process Video"}
       </Button>
 
@@ -113,7 +113,7 @@ export default function VideoAnalysis() {
             className="max-w-full max-h-full"
           />
         ) : (
-          <p className="text-gray-500">Upload a video to see it here</p>
+          <p className="text-gray-500">Upload a video to be processed.</p>
         )}
       </Card>
 
@@ -143,7 +143,19 @@ export default function VideoAnalysis() {
           open={!!selectedImage}
           onOpenChange={() => setSelectedImage(null)}
         >
-          <DialogContent className="w-[70vw] h-[80vh] max-w-full max-h-full flex items-center justify-center">
+          <DialogContent className="w-[70vw] h-[80vh] max-w-full max-h-full flex flex-col items-center justify-center">
+            <Button
+              onClick={() => {
+              const link = document.createElement("a");
+              link.href = `data:image/jpeg;base64,${selectedImage}`;
+              link.download = "enhanced_frame.jpg";
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              }}
+            >
+              Download Image
+            </Button>
             <div className="flex justify-center items-center w-full h-full">
               <img
                 src={`data:image/jpeg;base64,${selectedImage}`}
@@ -152,14 +164,15 @@ export default function VideoAnalysis() {
               />
             </div>
           </DialogContent>
+          <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="ghost">Close</Button>
+          </DialogClose>
+          </DialogFooter>
         </Dialog>
       )}
 
-      {/* Grayed-out background while loading */}
       {isLoading && (
-        // <div className="fixed top-[-20px] left-0 right-0 bottom-0 bg-gray-700 opacity-50 z-10 flex items-center justify-center">
-        //   <div className="w-16 h-16 border-8 border-t-transparent border-white rounded-full animate-spin"></div>
-        // </div>
         <Loading size="w-16 h-16" />
       )}
     </div>

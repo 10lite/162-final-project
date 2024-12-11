@@ -9,8 +9,8 @@ export default function Sidebar() {
   const menu_items = [
     { icon: <InfoIcon className="mr-2 h-4 w-4" />, text: "About the App", path: "/about" },
     { icon: <VideoIcon className="mr-2 h-4 w-4" />, text: "Analyze Traffic", path: "/" },
-    { icon: <BarChartIcon className="mr-2 h-4 w-4" />, text: "Traffic Patterns", path: "/map" },
-    { icon: <CarIcon className="mr-2 h-4 w-4" />, text: "Commute Guide", path: "/commute" },
+    { icon: <BarChartIcon className="mr-2 h-4 w-4" />, text: "Davao Traffic", path: "/map" },
+    { icon: <CarIcon className="mr-2 h-4 w-4" />, text: "Commute Guide", path: "https://davao-jeepney-guide.vercel.app/", external: true },
     { icon: <AlertTriangle className="mr-2 h-4 w-4" />, text: "Report an Incident", path: "/report" },
   ]
 
