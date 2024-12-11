@@ -129,6 +129,7 @@ export default function EnhanceImage() {
         </Button>
         {enhancedImage && (
           <Button
+            className="bg-yellow-500 text-black hover:bg-yellow-300"
             onClick={() => {
               const link = document.createElement("a");
               link.href = `data:image/jpeg;base64,${enhancedImage}`;

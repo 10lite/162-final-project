@@ -144,18 +144,22 @@ export default function VideoAnalysis() {
           onOpenChange={() => setSelectedImage(null)}
         >
           <DialogContent className="w-[70vw] h-[80vh] max-w-full max-h-full flex flex-col items-center justify-center">
-            <Button
-              onClick={() => {
-              const link = document.createElement("a");
-              link.href = `data:image/jpeg;base64,${selectedImage}`;
-              link.download = "enhanced_frame.jpg";
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              }}
-            >
-              Download Image
-            </Button>
+            <DialogTitle>
+              <Button
+                className="bg-yellow-500 text-black hover:bg-yellow-300"
+                onClick={() => {
+                const link = document.createElement("a");
+                link.href = `data:image/jpeg;base64,${selectedImage}`;
+                link.download = "enhanced_frame.jpg";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                }}
+              >
+                Download Image
+              </Button>
+
+            </DialogTitle>
             <div className="flex justify-center items-center w-full h-full">
               <img
                 src={`data:image/jpeg;base64,${selectedImage}`}
