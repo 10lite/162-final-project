@@ -11,9 +11,9 @@ import { Loading } from "./ui/loading"; // Assuming you have a Loading component
 
 export default function EnhanceImage() {
   const [image, setImage] = useState<File | null>(null);
-  const [enhancementLevel, setEnhancementLevel] = useState(0.5);
-  const [restorationLevel, setRestorationLevel] = useState(0.5);
-  const [compressionLevel, setCompressionLevel] = useState(0.5);
+  const [enhancementLevel, setEnhancementLevel] = useState(0);
+  const [restorationLevel, setRestorationLevel] = useState(0);
+  const [compressionLevel, setCompressionLevel] = useState(0);
   const [enhancedImage, setEnhancedImage] = useState<string | null>(null); // For displaying the enhanced image
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const { toast } = useToast();
@@ -86,8 +86,9 @@ export default function EnhanceImage() {
           onChange={handleUpload}
         />
       </div>
-      <div>
+      <div className="space-y-3">
         <Label htmlFor="enhancement">Enhancement Level</Label>
+        <span className="ml-2 p-1 bg-yellow-500 rounded text-white border-black border-2 w-6">{enhancementLevel * 100}%</span>
         <Slider
           id="enhancement"
           min={0.1}
@@ -97,8 +98,9 @@ export default function EnhanceImage() {
           onValueChange={(value) => setEnhancementLevel(value[0])}
         />
       </div>
-      <div>
+      <div className="space-y-3">
         <Label htmlFor="restoration">Restoration Level</Label>
+        <span className="ml-2 p-1 bg-yellow-500 rounded text-white border-black border-2">{restorationLevel * 100}%</span>
         <Slider
           id="restoration"
           min={0}
@@ -106,10 +108,12 @@ export default function EnhanceImage() {
           step={0.1}
           value={[restorationLevel]}
           onValueChange={(value) => setRestorationLevel(value[0])}
+          className="text-yellow-200"
         />
       </div>
-      <div>
+      <div className="space-y-2">
         <Label htmlFor="compression">Compression Level</Label>
+        <span className="ml-2 p-1 bg-yellow-500 rounded text-white border-black border-2">{compressionLevel * 100}%</span>
         <Slider
           id="compression"
           min={0}
@@ -120,7 +124,7 @@ export default function EnhanceImage() {
         />
       </div>
       <div className="flex gap-4">
-        <Button onClick={handleProcess} disabled={isLoading}>
+        <Button onClick={handleProcess} disabled={isLoading} className="bg-yellow-500 text-black hover:bg-yellow-300">
           {isLoading ? "Processing..." : "Process Image"}
         </Button>
         {enhancedImage && (
@@ -151,7 +155,7 @@ export default function EnhanceImage() {
             className="max-w-full max-h-full object-contain"
           />
         ) : (
-          <p className="text-gray-500">Upload an image to see it here</p>
+          <p className="text-gray-500">Upload an image to be enhanced.</p>
         )}
       </Card>
 
@@ -167,102 +171,3 @@ export default function EnhanceImage() {
     </div>
   );
 }
-
-// "use client";
-
-// import { useState } from "react";
-// import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
-// import { Slider } from "@/components/ui/slider";
-// import { Card } from "@/components/ui/card";
-
-// export default function EnhanceImage() {
-//   const [image, setImage] = useState<File | null>(null);
-//   const [enhancementLevel, setEnhancementLevel] = useState(0.5);
-//   const [restorationLevel, setRestorationLevel] = useState(0.5);
-//   const [compressionLevel, setCompressionLevel] = useState(0.5);
-
-//   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = event.target.files?.[0];
-//     if (file) {
-//       setImage(file);
-//     }
-//   };
-
-//   const handleProcess = () => {
-//     // Handle image processing
-//     console.log("Processing image with settings:", {
-//       enhancementLevel,
-//       restorationLevel,
-//       compressionLevel,
-//     });
-//   };
-
-//   return (
-//     <div className="space-y-4">
-//       <h2 className="text-2xl font-bold">Enhance Traffic Image</h2>
-//       <h4>
-//         Upload an image with vehicles to enhance quality, restore details, and
-//         compress the image for better analysis.
-//       </h4>
-//       <div>
-//         <Label htmlFor="image-upload">Upload Image</Label>
-//         <Input
-//           id="image-upload"
-//           type="file"
-//           accept="image/*"
-//           onChange={handleUpload}
-//         />
-//       </div>
-//       <div>
-//         <Label htmlFor="enhancement">Enhancement Level</Label>
-//         <Slider
-//           id="enhancement"
-//           min={0}
-//           max={1}
-//           step={0.1}
-//           value={[enhancementLevel]}
-//           onValueChange={(value) => setEnhancementLevel(value[0])}
-//         />
-//       </div>
-//       <div>
-//         <Label htmlFor="restoration">Restoration Level</Label>
-//         <Slider
-//           id="restoration"
-//           min={0}
-//           max={1}
-//           step={0.1}
-//           value={[restorationLevel]}
-//           onValueChange={(value) => setRestorationLevel(value[0])}
-//         />
-//       </div>
-//       <div>
-//         <Label htmlFor="compression">Compression Level</Label>
-//         <Slider
-//           id="compression"
-//           min={0}
-//           max={1}
-//           step={0.1}
-//           value={[compressionLevel]}
-//           onValueChange={(value) => setCompressionLevel(value[0])}
-//         />
-//       </div>
-//       <div className="flex gap-4">
-//         <Button onClick={handleProcess}>Process Image</Button>
-//         <Button onClick={handleProcess}>Download Image</Button>
-//       </div>
-//       <Card className="w-full aspect-video flex items-center p-6 justify-center bg-gray-100">
-//         {image ? (
-//           <img
-//             src={URL.createObjectURL(image)}
-//             alt="Uploaded image"
-//             className="max-w-full max-h-full object-contain"
-//           />
-//         ) : (
-//           <p className="text-gray-500">Upload an image to see it here</p>
-//         )}
-//       </Card>
-//     </div>
-//   );
-// }

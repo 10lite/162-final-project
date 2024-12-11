@@ -10,7 +10,7 @@ export default function AboutContent() {
       <CardContent className="space-y-4">
         <p>BantayTrapiko is a final project for CMSC 162 - Introduction to Image and Video Processing</p>
         <p>This app is developed by three 4-BSCS students from the University of the Philippines Mindanao.</p>
-        <p>You may view the full project documentation here.</p>
+        <p>You may view the full project <a className="underline" href="https://docs.google.com/document/d/1BNaOna-T7Q7VWgPO_YpREI5EVUHaSkIjpHJx1utA8SE/edit?usp=sharing" target="_blank">paper here</a> and the <a className="underline" href="https://github.com/ASPactores/bantay-trapiko" target="_blank">GitHub repository here</a>.</p>
       </CardContent>
     </Card>
   )

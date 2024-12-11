@@ -15,7 +15,7 @@ type TabInfo = {
 };
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState("video")
+  const [activeTab, setActiveTab] = useState("enhance")
 
   // Array of tab information
   const tabs: TabInfo[] = [
