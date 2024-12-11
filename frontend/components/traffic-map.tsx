@@ -41,7 +41,6 @@ const TrafficMap = () => {
         mapContainerStyle={containerStyle}
         center={center}
         zoom={13} // Adjust zoom level to fit Davao City
-        options={{ disableDefaultUI: true, draggable: false }}
         onLoad={() => console.log('Map Loaded')}
       >
         <TrafficLayer />
